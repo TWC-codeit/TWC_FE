@@ -1,0 +1,27 @@
+img {
+  width: 100%;
+  height: auto;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #fff;
+
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
