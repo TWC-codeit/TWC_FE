@@ -1,6 +1,7 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
+import palette from './lib/colorPalette';
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -15,6 +16,22 @@ import TimelineDetail from "./pages/TimelineDetail";
 import TimelineUpdate from "./pages/TimelineUpdate";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // 배경색 설정
+    if (
+      location.pathname.startsWith("/timeline") &&
+      (location.pathname.endsWith("/create") ||
+        location.pathname.endsWith("/update") ||
+        /^\/timeline\/\d+$/.test(location.pathname))
+    ) {
+      document.body.style.backgroundColor = "#FFFFFF";
+    } else {
+      document.body.style.backgroundColor = palette.blue.background;
+    }
+  }, [location]);
+
   return (
     <div className="App">
       <Routes>
@@ -22,7 +39,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/scrap" element={<ScrapList />} />
-        {/* 오늘의 보도들들 */}
+        {/* 오늘의 보도들 */}
         <Route exact path="/today" element={<Todaynews />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/search/:publisherName" element={<SearchDetail />} />
@@ -30,7 +47,7 @@ function App() {
         <Route exact path="/timeline" element={<TimelineList />} />
         <Route exact path="/timeline/create" element={<TimelineCreate />} />
         <Route exact path="/timeline/:id" element={<TimelineDetail />} />
-        <Route exact path="/timeline/:id/update" element={<TimelineUpdate />} />       
+        <Route exact path="/timeline/:id/update" element={<TimelineUpdate />} />
       </Routes>
     </div>
   );
