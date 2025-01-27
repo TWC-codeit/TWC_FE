@@ -1,43 +1,37 @@
 import styled from "styled-components";
-
-
+import palette from "../lib/colorPalette";
 
 export const Main = styled.div`
-  width: 730px;
-  height: 280px; 
-  margin: 170px auto;
-  gap: 37px; 
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 37px;
+  padding-top: 170px;
 `;
 
-
-export const Logo = styled.div`
-  img {
-    width: 355px; 
-    height: 65px;
-    display: block; 
-    margin: 0 auto;
-    margin-bottom: 45px; 
-  }
+export const Logo = styled.img`
+  width: 18vw;
+  padding-bottom: 8px;
 `;
+
 export const SearchBar = styled.div`
-  width: 730px;
-  height: 76px;
+  width: 40vw;
   padding: 15px 20px;
   display: flex;
   align-items: center;
-  border: 1px ;
+  border: 1px;
   border-radius: 10px;
+  border: 1px solid #ffffff;
   background-color: #ffffff;
-  gap: 19px; 
-  box-shadow: 0px 0px 10px 0px #B6BFD1;
+  gap: 19px;
+  box-shadow: 0 0 10px 0 rgba(182, 191, 209, 0.07);
   box-sizing: border-box;
 `;
 export const SearchBox = styled.div`
   display: flex;
   align-items: center;
-  width: 700px; 
-  height: 38px; 
+  width: 700px;
+  height: 38px;
   gap: 19px;
 `;
 
@@ -45,7 +39,7 @@ export const SearchIcon = styled.button`
   width: 38px;
   height: 38px;
   border: none;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,17 +52,17 @@ export const SearchIcon = styled.button`
 
 export const SearchInput = styled.input`
   flex-grow: 1;
-  height: 36px;  
-  border: none; 
+  height: 36px;
+  border: none;
   outline: none;
-  font-family: "Pretendard"; 
-  font-weight: 500; 
-  font-size: 24px; 
+  font-family: "Pretendard";
+  font-weight: 500;
+  font-size: 1.5rem;
   line-height: 36px;
-  color: #161613;
+  color: ${palette.gray.text};
 
   ::placeholder {
-    color: #9a9a98; 
+    color: #9a9a98;
     opacity: 0.39;
   }
 `;
