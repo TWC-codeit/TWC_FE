@@ -8,6 +8,7 @@ import {
 } from "../styles/ScrapListStyle.js";
 
 import ScrapListItem from "../components/ScrapListItem.jsx";
+import ScrapPopup from "../components/ScrapPopup.jsx";
 // 더미 데이터: articleId로 뉴스 정보를 매핑
 const articleData = {
   101: {
@@ -212,6 +213,7 @@ const ScrapList = () => {
           </Grid>
         </Section>
       ))}
+      <ScrapPopup />
     </Container>
   );
 };
