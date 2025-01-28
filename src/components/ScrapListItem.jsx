@@ -1,19 +1,5 @@
 import React from "react";
-import {
-  Card,
-  EmptyCard,
-  CardBackground,
-  SourceIcon,
-  ThumbnailContainer,
-  Thumbnail,
-  BookmarkButton,
-  CardContent,
-  ContentHeader,
-  Keyword,
-  PublishedDate,
-  Title,
-  SourceIconContainer,
-} from "../styles/components/ScrapListItemStyle.js";
+import * as S from "../styles/components/ScrapListItemStyle.js";
 import bookmarkIcon from "../assets/icons/bookmark.svg";
 import bookmarkFilledIcon from "../assets/icons/bookmark_filled.svg";
 
@@ -34,37 +20,37 @@ const ScrapListItem = ({
   onBookmarkClick,
 }) => {
   if (isEmpty) {
-    return <EmptyCard />;
+    return <S.EmptyCard />;
   }
 
   /* 뉴스사별 아이콘 URL */
   var SourceTypeURL = `/src/assets/source/${article.source}.png`;
 
   return (
-    <Card onClick={onArticleClick}>
-      <CardBackground>
-        <SourceIconContainer>
-          <SourceIcon src={SourceTypeURL} alt="뉴스사" />
-        </SourceIconContainer>
+    <S.Card onClick={onArticleClick}>
+      <S.CardBackground>
+        <S.SourceIconContainer>
+          <S.SourceIcon src={SourceTypeURL} alt="뉴스사" />
+        </S.SourceIconContainer>
 
-        <ThumbnailContainer>
-          <Thumbnail src={article.image} alt={article.title} />
-          <BookmarkButton onClick={onBookmarkClick}>
+        <S.ThumbnailContainer>
+          <S.Thumbnail src={article.image} alt={article.title} />
+          <S.BookmarkButton onClick={onBookmarkClick}>
             <img src={bookmarkFilledIcon} alt="북마크" />
-          </BookmarkButton>
-        </ThumbnailContainer>
+          </S.BookmarkButton>
+        </S.ThumbnailContainer>
 
-        <CardContent>
-          <ContentHeader>
-            <Keyword>{article.keyword}</Keyword>
-            <PublishedDate>
+        <S.CardContent>
+          <S.ContentHeader>
+            <S.Keyword>{article.keyword}</S.Keyword>
+            <S.PublishedDate>
               {formatPublishedDate(article.publishedAt)}
-            </PublishedDate>
-          </ContentHeader>
-          <Title>{article.title}</Title>
-        </CardContent>
-      </CardBackground>
-    </Card>
+            </S.PublishedDate>
+          </S.ContentHeader>
+          <S.Title>{article.title}</S.Title>
+        </S.CardContent>
+      </S.CardBackground>
+    </S.Card>
   );
 };
 export default ScrapListItem;

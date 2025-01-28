@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Heading,
-  Section,
-  DateHeading,
-  Grid,
-} from "../styles/ScrapListStyle.js";
-
+import * as S from "../styles/ScrapListStyle.js";
 import ScrapListItem from "../components/ScrapListItem.jsx";
+
 // 더미 데이터: articleId로 뉴스 정보를 매핑
 const articleData = {
   101: {
@@ -195,12 +189,12 @@ const ScrapList = () => {
   };
 
   return (
-    <Container>
-      <Heading>스크랩 목록</Heading>
+    <S.Container>
+      <S.Heading>스크랩 목록</S.Heading>
       {Object.entries(groupedScraps).map(([date, scraps]) => (
-        <Section key={date}>
-          <DateHeading>{formatDateHeading(date)}</DateHeading>
-          <Grid columns={columns}>
+        <S.Section key={date}>
+          <S.DateHeading>{formatDateHeading(date)}</S.DateHeading>
+          <S.Grid columns={columns}>
             {fillEmptyCards(scraps).map((scrap) => {
               /* 스크랩 데이터의 articleID로 기사 정보 불러오는 부분 */
               const article = articleData[scrap.articleId];
@@ -215,10 +209,10 @@ const ScrapList = () => {
                 />
               );
             })}
-          </Grid>
-        </Section>
+          </S.Grid>
+        </S.Section>
       ))}
-    </Container>
+    </S.Container>
   );
 };
 
