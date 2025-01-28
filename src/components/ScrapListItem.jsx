@@ -9,9 +9,10 @@ import {
   BookmarkButton,
   CardContent,
   ContentHeader,
-  Source,
+  Keyword,
   PublishedDate,
   Title,
+  SourceIconContainer,
 } from "../styles/components/ScrapListItemStyle.js";
 import bookmarkIcon from "../assets/icons/bookmark.svg";
 import bookmarkFilledIcon from "../assets/icons/bookmark_filled.svg";
@@ -35,21 +36,16 @@ const ScrapListItem = ({
   if (isEmpty) {
     return <EmptyCard />;
   }
-  /* 뉴스사별 아이콘 분기문 */
-  var SourceTypeURL = "";
-  switch (article.source) {
-    case "YTN":
-      SourceTypeURL = `/src/assets/test/ytn.png`;
-      break;
-    case "KBS":
-      SourceTypeURL = `/src/assets/test/kbs.png`;
-    default:
-      break;
-  }
+
+  /* 뉴스사별 아이콘 URL */
+  var SourceTypeURL = `/src/assets/source/${article.source}.png`;
+
   return (
     <Card onClick={onArticleClick}>
       <CardBackground>
-        <SourceIcon src={SourceTypeURL} alt="뉴스사" />
+        <SourceIconContainer>
+          <SourceIcon src={SourceTypeURL} alt="뉴스사" />
+        </SourceIconContainer>
 
         <ThumbnailContainer>
           <Thumbnail src={article.image} alt={article.title} />
@@ -60,7 +56,7 @@ const ScrapListItem = ({
 
         <CardContent>
           <ContentHeader>
-            <Source>{article.source}</Source>
+            <Keyword>{article.keyword}</Keyword>
             <PublishedDate>
               {formatPublishedDate(article.publishedAt)}
             </PublishedDate>

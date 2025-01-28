@@ -20,25 +20,33 @@ export const CardBackground = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../../src/assets/test/ScrapItem.png"); /* Card 배경 이미지 */
+  background-image: url("../../src/assets/icons/ScrapItem.png"); /* Card 배경 이미지 */
   background-size: cover;
   background-position: center;
   padding: 8px;
   border-radius: 8px;
 `;
-export const SourceIcon = styled.img`
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
+export const SourceIconContainer = styled.div`
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
   margin-bottom: 5px;
-  padding-top: 5px;
-  padding: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+`;
+export const SourceIcon = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+  overflow: hidden;
 `;
 export const ThumbnailContainer = styled.div`
   position: relative;
   width: 100%;
   height: 50%;
-  margin-top: 5px;
+  margin-top: 2px;
   margin-bottom: 10px;
 `;
 export const Thumbnail = styled.img`
@@ -78,13 +86,13 @@ export const ContentHeader = styled.div`
   margin-bottom: 5px;
 `;
 
-export const Source = styled.div`
+export const Keyword = styled.div`
   font-size: 12px;
   font-weight: 600;
   color: #387dff;
   background-color: #dde9ff;
   border-radius: 4px;
-  padding: 3px 10px;
+  padding: 3px 9px;
   margin: 0;
   line-height: 1.4;
   display: inline-block;

@@ -11,40 +11,46 @@ import ScrapListItem from "../components/ScrapListItem.jsx";
 // 더미 데이터: articleId로 뉴스 정보를 매핑
 const articleData = {
   101: {
-    source: "YTN",
+    source: "Financial News",
+    keyword: "태풍",
     title: "AI 기술 동향",
     image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
   102: {
-    source: "MBN",
+    source: "YTN",
+    keyword: "비트코인",
     title:
       "경제 뉴스 분석 경제 뉴스 분석 경제 뉴스 분석 경제 뉴스 분석경제 뉴스 분석 경제 뉴스 분석 ",
     image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
   103: {
-    source: "SBS",
+    source: "Herald Business",
+    keyword: "비트코인",
     title: "기후 변화와 미래",
     image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
   104: {
-    source: "JTBC",
+    source: "JoongAng Ilbo",
+    keyword: "비트코인",
     title: "글로벌 이슈 점검",
     image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
   105: {
-    source: "KBS",
+    source: "Kyunghyang Shinmun",
+    keyword: "비트코인",
     title: "최신 스포츠 뉴스",
     image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
   106: {
-    source: "조선일보",
+    source: "Money Today",
+    keyword: "비트코인",
     title: "부동산 시장 전망",
-    image: "/images/news106.jpg",
+    image: "../src/assets/test/images.png",
     publishedAt: "2025-01-17T10:00:00Z",
   },
 };
@@ -78,7 +84,7 @@ const scraps = [
   },
   {
     id: 6,
-    articleId: 101,
+    articleId: 106,
     scrapedAt: "2025-01-18T12:30:00Z",
   },
   {
