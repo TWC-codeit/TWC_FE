@@ -1,77 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ScrapPopupItem from "./ScrapPopupItem";
 import popupBtn from "../assets/icons/popup-btn.png";
 import * as S from "../styles/components/ScrapPopupStyle.js";
 import alertMsg from "../assets/icons/alert.png";
+import axios from "axios";
 
-/*API 연결 전 테스트 데이터*/
-const scrapData = [
-  { id: "1", articleID: "101", title: "경제 뉴스 테스트 해보기" },
-];
-
-const data = [
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-  {
-    articleID: "101",
-    title:
-      "경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목 경제 뉴스 기사제목",
-    source: "YTN",
-    imageUrl: "/src/assets/test/images.png",
-    url: "https://",
-    publishedAt: "2025-01-17T10:00:00Z",
-  },
-];
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ScrapPopup = () => {
   const [isListVisible, setListVisible] = useState(false);
+  const [scraps, setScraps] = useState([]);
   const toggleList = () => {
     setListVisible(!isListVisible);
   };
 
+  useEffect(() => {
+    const fetchScraps = async () => {
+      try {
+        const accessToken = "토큰테스트";
+        const response = await axios.get(`${apiUrl}/scraps`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        const transformedScraps = response.data.scraps.map((item) => ({
+          scrapId: item.scrapId,
+          title: item.title,
+          publishedAt: item.publishedAt,
+          source: item.source,
+          imageUrl: item.imageUrl,
+          url: item.url,
+        }));
+
+        setScraps(transformedScraps);
+      } catch (error) {
+        console.error("스크랩 목록 불러오기 실패", error);
+      }
+    };
+
+    fetchScraps();
+  }, []);
+  console.log(scraps);
   return (
     <div>
       <S.AlertContainer isPopupVisible={isListVisible}>
@@ -82,8 +51,8 @@ const ScrapPopup = () => {
         <img src={popupBtn} />
       </S.FloatingButton>
       <S.ScrapPopupContainer isVisible={isListVisible}>
-        {data.map((item) => (
-          <ScrapPopupItem key={item.articleID} data={item} />
+        {scraps.map((item) => (
+          <ScrapPopupItem key={item.scrapId} data={item} />
         ))}
       </S.ScrapPopupContainer>
     </div>

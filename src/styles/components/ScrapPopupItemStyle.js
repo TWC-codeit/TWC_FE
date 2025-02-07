@@ -52,8 +52,9 @@ export const Title = styled.h3`
   font-size: 18px;
   font-weight: 600;
   margin-top: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   line-height: 1.4;
+  height: 48px;
   overflow: hidden; /* 텍스트가 넘칠 경우 숨김 처리 */
   text-overflow: ellipsis; /* 넘치는 텍스트에 "..." 추가 */
   display: -webkit-box; /* 멀티라인 처리 */
