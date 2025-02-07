@@ -37,3 +37,11 @@ export const Grid = styled.div`
   box-sizing: border-box;
   width: 100%;
 `;
+
+export const Message = styled.div`
+  font-size: 30px;
+  color: #666;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20%;
+`;
