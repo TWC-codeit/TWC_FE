@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 import { createRoot } from "react-dom/client";
 import { CookiesProvider } from "react-cookie";
 import Header from "./components/Header.jsx";

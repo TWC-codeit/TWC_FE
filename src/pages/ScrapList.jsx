@@ -112,6 +112,6 @@ const ScrapList = () => {
       ))}
     </S.Container>
   );
-};
+}
 
 export default ScrapList;
