@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import { useCookies } from "react-cookie";
+import { getCookie } from "../assets/api/Cookie.js";
 import * as S from "../styles/components/ScrapListItemStyle.js";
 
 import bookmarkIcon from "../assets/icons/bookmark.svg";
@@ -78,9 +78,7 @@ const ScrapListItem = ({ scrap, isEmpty }) => {
     return <S.EmptyCard />;
   }
 
-  const accessToken = "토큰테스트";
-
-  //const token = getCookie('access_token');
+  const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
 
   /* 북마크 버튼 핸들 함수 */
   const handleBookmarkToggle = async (event) => {

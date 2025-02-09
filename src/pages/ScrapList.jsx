@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as S from "../styles/ScrapListStyle.js";
 import ScrapListItem from "../components/ScrapListItem.jsx";
 import axios from "axios";
-//import { useCookies } from "react-cookie";
+import { getCookie } from "../assets/api/Cookie.js";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 // "YYYY년 MM월 DD일" 형식으로 scrapedAt 변환
@@ -22,6 +22,7 @@ const ScrapList = () => {
 
   const fetchScraps = async () => {
     try {
+      const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
       const response = await axios.get(`${apiUrl}/scraps`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // 인증 헤더 추가
