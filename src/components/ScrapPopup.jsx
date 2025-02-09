@@ -4,6 +4,7 @@ import popupBtn from "../assets/icons/popup-btn.png";
 import * as S from "../styles/components/ScrapPopupStyle.js";
 import alertMsg from "../assets/icons/alert.png";
 import axios from "axios";
+import { getCookie } from "../api/Cookie.js";
 
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
@@ -17,7 +18,8 @@ const ScrapPopup = () => {
   useEffect(() => {
     const fetchScraps = async () => {
       try {
-        const accessToken = "토큰테스트";
+        const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
+
         const response = await axios.get(`${apiUrl}/scraps`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -40,7 +42,7 @@ const ScrapPopup = () => {
 
     fetchScraps();
   }, []);
-  console.log(scraps);
+
   return (
     <div>
       <S.AlertContainer isPopupVisible={isListVisible}>
