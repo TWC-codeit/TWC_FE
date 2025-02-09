@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../styles/ScrapListStyle.js";
-// import ScrapListItem from "../components/ScrapListItem.jsx";
+import ScrapListItem from "../components/ScrapListItem.jsx";
 import axios from "axios";
 import { getCookie } from "../assets/api/Cookie.js";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
