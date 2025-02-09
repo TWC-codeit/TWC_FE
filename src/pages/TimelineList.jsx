@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TimelineItem from "../components/TimelineItem";
-import {
-  Container,
-  Title,
-  TimelineWrapper,
-  AddTimeline,
-  NoData,
-} from "../styles/TimelineStyle";
+import { Container, Title, TimelineWrapper, AddTimeline, NoData } from "../styles/TimelineStyle";
 
 const TimelineList = () => {
   const [timelines, setTimelines] = useState([]);
