@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { getCookie } from "../assets/api/Cookie.js";
 import * as S from "../styles/components/ScrapListItemStyle.js";
 
 import bookmarkIcon from "../assets/icons/bookmark.svg";
@@ -71,14 +70,12 @@ const formatPublishedDate = (isoDate) => {
 
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
-const ScrapListItem = ({ scrap, isEmpty }) => {
+const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
   if (isEmpty) {
     return <S.EmptyCard />;
   }
-
-  const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
 
   /* 북마크 버튼 핸들 함수 */
   const handleBookmarkToggle = async (event) => {

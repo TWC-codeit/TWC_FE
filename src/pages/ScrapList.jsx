@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as S from "../styles/ScrapListStyle.js";
 import ScrapListItem from "../components/ScrapListItem.jsx";
 import axios from "axios";
-import { getCookie } from "../assets/api/Cookie.js";
+import { getCookie } from "../api/Cookie.js";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 // "YYYY년 MM월 DD일" 형식으로 scrapedAt 변환
@@ -18,11 +18,12 @@ const formatDateHeading = (isoDate) => {
 const ScrapList = () => {
   const [groupedScraps, setGroupedScraps] = useState({});
   const [columns, setColumns] = useState(5);
+  const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState("");
 
-  const fetchScraps = async () => {
+  const fetchScraps = async (accessToken) => {
     try {
-      const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
       const response = await axios.get(`${apiUrl}/scraps`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // 인증 헤더 추가
@@ -30,7 +31,6 @@ const ScrapList = () => {
       });
 
       const scraps = response.data.scraps; // scraps 배열 추출
-      console.log(scraps);
 
       // 날짜별 그룹화
       if (Array.isArray(scraps)) {
@@ -74,16 +74,25 @@ const ScrapList = () => {
       }),
     ];
   };
-  const accessToken = "토큰테스트";
 
-  //const token = getCookie('access_token');
   useEffect(() => {
-    fetchScraps();
+    const accessToken = getCookie("access_token");
+    if (!accessToken) {
+      // 토큰이 없는 경우
+      setIsLogin(false);
+      return;
+    }
+    setAccessToken(accessToken);
+    fetchScraps(accessToken);
     updateColumns();
     window.addEventListener("resize", updateColumns);
     return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
+  /* 비로그인 시 비로그인 모달 리턴으로 변경 필요*/
+  if (!isLogin) {
+    return <S.Message>로그인되지 않은 사용자</S.Message>;
+  }
   if (isLoading) {
     return <S.Message>로딩 중...</S.Message>;
   }
@@ -104,6 +113,7 @@ const ScrapList = () => {
                   key={scrap.id}
                   scrap={scrap}
                   isEmpty={scrap.isEmpty}
+                  accessToken={accessToken}
                 />
               );
             })}
@@ -112,6 +122,6 @@ const ScrapList = () => {
       ))}
     </S.Container>
   );
-}
+};
 
 export default ScrapList;

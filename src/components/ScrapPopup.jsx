@@ -18,7 +18,7 @@ const ScrapPopup = () => {
   useEffect(() => {
     const fetchScraps = async () => {
       try {
-        const accessToken = getCookie(access_token); //로그인할때 쿠키 저장된 키로 바꾸기
+        const accessToken = getCookie("access_token");
 
         const response = await axios.get(`${apiUrl}/scraps`, {
           headers: {

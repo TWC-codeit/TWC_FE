@@ -1,7 +1,6 @@
 import React from "react";
 import * as S from "../styles/components/ScrapPopupItemStyle.js";
 import noImage from "../assets/noimage/no-image-icon.png";
-import noIcon from "../assets/noimage/noIcon.jpeg";
 
 const formatDateTime = (isoDate) => {
   if (!isoDate) return "날짜 없음";
