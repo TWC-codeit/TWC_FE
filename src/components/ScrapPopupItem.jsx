@@ -1,6 +1,7 @@
 import React from "react";
 import * as S from "../styles/components/ScrapPopupItemStyle.js";
 import noImage from "../assets/noimage/no-image-icon.png";
+import { useDrag } from "react-dnd";
 
 const formatDateTime = (isoDate) => {
   if (!isoDate) return "날짜 없음";
@@ -17,8 +18,17 @@ const formatDateTime = (isoDate) => {
 
 const ScrapPopupItem = ({ data }) => {
   const { title, source, imageUrl, publishedAt, url } = data;
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "SCRAP_ITEM",
+    item: { scrapId: data.scrapId, title: data.title, source: data.source, imageUrl: data.imageUrl, publishedAt: data.publishedAt, url: data.url },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+  
   return (
-    <S.Card onClick={() => window.open(url, "_blank")}>
+    <S.Card ref={drag} onClick={() => window.open(url, "_blank")} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <S.Thumbnail
         src={imageUrl || noImage}
         alt="썸네일"
