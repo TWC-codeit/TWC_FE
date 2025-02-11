@@ -10,7 +10,7 @@
 | Routing | <img src="https://img.shields.io/badge/ReactRouter-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"> | 직관적인 라우팅 관리 및 다양한 옵션 제공 |
 | Formatting | <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> | 코드 품질을 보장하고 일관된 코드 스타일을 유지 |
 | Package Manager | <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> | 팀원의 기술 수준 고려 |
-| Deployment | <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"> | 프로젝트의 빠르고 쉬운 배포를 지원 |
+| Deployment | <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> | 서버 배포에 맞춰서 http 배포를 위해 선정 |
 | Bundler | <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white"> | 빠른 개발 환경 설정과 HMR을 지원하여 개발 생산성을 향상 |
 
 ## ✅ Project Run
