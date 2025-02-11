@@ -9,7 +9,7 @@ import noIcon from "../assets/noimage/noIcon.jpeg";
 
 import Kyunghyang from "../assets/source/Kyunghyang Shinmun.png";
 import Hankyoreh from "../assets/source/Hankyoreh.png";
-import MoneyToday from "../assets/source/Money today.png";
+import MoneyToday from "../assets/source/Money_today.png";
 import HangookEconomics from "../assets/source/Hangook Economics.png";
 import YTN from "../assets/source/YTN.png";
 import KBS from "../assets/source/KBS.png";
