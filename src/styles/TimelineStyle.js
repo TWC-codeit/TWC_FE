@@ -47,7 +47,7 @@ export const NoData = styled.div`
 export const TimelineFolder = styled.div`
   width: 200px;
   height: 120px;
-  background: ${({ isHovered }) => (isHovered ? "#87B1FF" : "#D7E5FF")};
+  background:  ${(props) => (props.$isHovered ? "#87B1FF" : "#D7E5FF")};
   border-radius: 8px;
   display: flex;
   flex-direction: column;

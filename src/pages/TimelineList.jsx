@@ -36,8 +36,6 @@ const TimelineList = () => {
     fetchTimelines();
   }, []);
 
-  console.log(timelines);
-
   return (
     <Container>
       <Title>타임라이너</Title>

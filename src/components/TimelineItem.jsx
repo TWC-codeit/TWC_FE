@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as T from "../styles/TimelineListStyle";
+import * as T from "../styles/TimelineStyle";
 
 const TimelineItem = ({ timeline }) => {
   const navigate = useNavigate();
@@ -11,9 +11,9 @@ const TimelineItem = ({ timeline }) => {
       onClick={() => navigate(`/timeline/${timeline.id}`)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      isHovered={isHovered}
+      $isHovered={isHovered}
     >
-      <T.FolderTop isHovered={isHovered} />
+      <T.FolderTop $isHovered={isHovered} />
       <T.FolderContent>
         <T.NewsLabel>News</T.NewsLabel>
         <T.TimelineTitle>{timeline.title}</T.TimelineTitle>
