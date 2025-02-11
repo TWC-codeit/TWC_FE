@@ -12,6 +12,11 @@ jobs:
     steps:          
       - name: Checkout source code
         uses: actions/checkout@v3		
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
       
       - name: Cache node modules
         uses: actions/cache@v3
@@ -23,7 +28,6 @@ jobs:
             ${{ runner.OS }}-
       
       - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install	
 
       - name: Set Environment Variables
@@ -31,10 +35,10 @@ jobs:
           echo "VITE_APP_API_URL=${{ secrets.VITE_APP_API_URL }}" >> .env
 
       - name: Check .env file
-        run: cat .env
-      
+        run: cat .env || echo ".env file not found"
+
       - name: Build
-        run: npm run build --mode production
+        run: npm run build
       
       - name: Check if dist directory exists
         run: ls -la ./dist
