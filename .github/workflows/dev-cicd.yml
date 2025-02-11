@@ -37,6 +37,9 @@ jobs:
       - name: Check .env file
         run: cat .env || echo ".env file not found"
 
+      - name: Check assets folder
+        run: ls -la src/assets/source/
+
       - name: Build
         run: npm run build
       
