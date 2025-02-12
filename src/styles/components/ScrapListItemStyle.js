@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cardImageBg from "/src/assets/icons/ScrapItem.png";
 
 export const Card = styled.div`
   position: relative;
@@ -20,7 +21,7 @@ export const CardBackground = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../../src/assets/icons/ScrapItem.png"); /* Card 배경 이미지 */
+  background-image: url(${cardImageBg}); /* Card 배경 이미지 */
   background-size: cover;
   background-position: center;
   padding: 8px;
