@@ -13,10 +13,13 @@ const TimelineItem = ({ timeline }) => {
       onMouseLeave={() => setIsHovered(false)}
       $isHovered={isHovered}
     >
+      {/* 📂 폴더 윗부분 */}
       <T.FolderTop $isHovered={isHovered} />
+
+      {/* 📂 폴더 본체 */}
       <T.FolderContent>
         <T.NewsLabel>News</T.NewsLabel>
-        <T.TimelineTitle>{timeline.title}</T.TimelineTitle>
+        <T.TimelineTitle>{timeline.name}</T.TimelineTitle> {/* 🔹 이름 표시 */}
       </T.FolderContent>
     </T.TimelineFolder>
   );

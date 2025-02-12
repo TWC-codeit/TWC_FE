@@ -24,30 +24,41 @@ export const AddTimeline = styled.div`
   width: 200px;
   height: 120px;
   border: 2px dashed #387dff;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* 중앙 정렬 */
   color: #387dff;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+  background: #f2f7ff;
+  position: relative;
+  transition: 0.3s;
+
   &:hover {
     background: #d7e5ff;
   }
 `;
 
-export const NoData = styled.div`
-  font-size: 18px;
-  color: #9a9a98;
-  text-align: center;
-  margin-top: 20px;
+// 📂 폴더 윗부분 스타일 추가
+export const AddFolderTop = styled.div`
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: #f2f7ff;
+  border: 2px dashed #387dff;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  top: -10px;
+  left: 20px;
 `;
 
 export const TimelineFolder = styled.div`
   width: 200px;
   height: 120px;
-  background:  ${(props) => (props.$isHovered ? "#87B1FF" : "#D7E5FF")};
+  background: ${(props) => (props.$isHovered ? "#87B1FF" : "#D7E5FF")};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -60,9 +71,9 @@ export const TimelineFolder = styled.div`
 
 export const FolderTop = styled.div`
   position: absolute;
-  width: 100px;
+  width: 80px;
   height: 20px;
-  background: ${({ isHovered }) => (isHovered ? "#6A9AFF" : "#B0D0FF")};
+  background: ${({ $isHovered }) => ($isHovered ? "#6A9AFF" : "#B0D0FF")};
   top: -10px;
   border-radius: 8px 8px 0 0;
 `;
@@ -90,4 +101,18 @@ export const TimelineTitle = styled.div`
   font-weight: 600;
   color: white;
   margin-top: 8px;
+`;
+
+export const TimelineGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+`;
+
+export const NoData = styled.div`
+  font-size: 18px;
+  color: #9a9a98;
+  text-align: center;
+  margin-top: 20px;
 `;
