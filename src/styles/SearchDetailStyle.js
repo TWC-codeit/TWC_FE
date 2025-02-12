@@ -32,8 +32,8 @@ export const HighlightText = styled.span`
 export const Article = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 10px 0;
+  gap: 20px;
+  padding:15px 0;
 `;
 
 export const ThumbnailWrapper = styled.div`
@@ -59,18 +59,20 @@ export const ScrapIcon = styled.img`
 export const ArticleContent = styled.div`
   
   margin-left:10px;
+  margin-top: -15px;
+  
   
 `;
 
 export const ArticleTitle = styled.h3`
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   color: #333;
 `;
 
 export const ArticleSummary = styled.div`
   display: -webkit-box;
-  -webkit-line-clamp: 2; 
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; 
@@ -84,7 +86,7 @@ export const ArticleSummary = styled.div`
 `;
 
 export const ArticleDate = styled.div`
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 0.85rem;
   color: gray;
   display: block; 
