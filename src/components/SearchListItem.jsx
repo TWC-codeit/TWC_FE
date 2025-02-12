@@ -93,29 +93,38 @@ const SearchListItem = ({ publisher, articles }) => {
     };
 
 
-    const imageArticles = articles.filter(article => article.thumbnail).slice(0, 2);
-    const textArticles = articles.filter(article => !article.thumbnail).slice(0, 6 - imageArticles.length);
+    let selectedArticles = articles.slice(0, 6);
+
+   
+    let imageArticles = selectedArticles.slice(0, 2).map(article => ({
+        ...article,
+        thumbnail: article.thumbnail && article.thumbnail.trim() ? article.thumbnail : noImage
+    }));
+
+    
+    let textArticles = selectedArticles.slice(2);
 
     return (
       <Card>
         <CardBackground>
-          {/* 뉴스사 로고 */}
+         
           <SourceIconContainer>
             <SourceIcon src={sourceIconMap[publisher] || noIcon} alt={publisher} />
           </SourceIconContainer>
-
 
           <CardHeader>
             <TotalArticles>총 {articles.length}건</TotalArticles>
             <ViewMoreButton onClick={handleViewMoreClick}>전체보기</ViewMoreButton> 
           </CardHeader>
 
+       
           <ThumbnailContainer>
             {imageArticles.map((article, index) => (
               <ThumbnailWrapper key={index}>
                 <CardImage
-                  src={article.thumbnail && article.thumbnail.trim() !== "" ? article.thumbnail : noImage}
+                  src={article.thumbnail}
                   alt="기사 썸네일"
+                  onError={(e) => e.target.src = noImage} // ✅ 이미지 로딩 실패 시 noImage로 대체
                 />
                 <ScrapIcon
                   src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}
@@ -127,14 +136,15 @@ const SearchListItem = ({ publisher, articles }) => {
             ))}
           </ThumbnailContainer>
 
+       
           <TextArticlesContainer>
             {textArticles.map((article, index) => (
               <ArticleText key={index}>
                 {article.title}
                 <ScrapIconText
-                  src={bookmarks[index + imageArticles.length] ? bookmarkFilledIcon : bookmarkIcon}
+                  src={bookmarks[index + 2] ? bookmarkFilledIcon : bookmarkIcon}
                   alt="스크랩"
-                  onClick={() => toggleBookmark(index + imageArticles.length)}
+                  onClick={() => toggleBookmark(index + 2)}
                 />
               </ArticleText>
             ))}

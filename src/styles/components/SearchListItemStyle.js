@@ -69,7 +69,7 @@ export const ThumbnailContainer = styled.div`
   display: flex;
   gap: 20px;
   margin-left: 35px;
-  margin-top: -80px;
+  margin-top: 5px;
 `;
 
 
@@ -118,33 +118,44 @@ export const ImageArticleTitle = styled.p`
 
 
 export const TextArticlesContainer = styled.div`
-  margin-top: 10px;
-  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 130px;
+  overflow: hidden;
+  padding: 5px 10px;
+  gap: 6px;
+  margin-top: 7px;
+  margin-left: 30px;
 `;
 
-
 export const ArticleText = styled.div`
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 4px;
-  margin-left: 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 330px;
+  font-size: 12px;
+  font-weight: bold;
+  overflow: hidden;
+  
+`;
+
+export const ArticleTitle = styled.span`
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 250px; /* 🔥 글자 최대 길이 제한 */
-  flex-grow: 1; /* 🔥 글자가 자동으로 너비 차지 */
 `;
 
 export const ScrapIconText = styled.img`
   width: 16px;
   height: 16px;
   cursor: pointer;
-  flex-shrink: 0; /* 🔥 스크랩 아이콘은 절대 줄어들지 않도록 설정 */
-  margin-left: 8px; /* 🔥 아이콘과 제목 사이 여백 */
+  flex-shrink: 0;
+  margin-left: 10px;
 `;
+
 
 
 export const SourceIcon = styled.img`
