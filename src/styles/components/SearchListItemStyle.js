@@ -23,7 +23,7 @@ export const CardBackground = styled.div`
   position: relative;
   width: 105%;
   height: 100%;
-  background-image: url("../../src/assets/icons/Union.svg");
+  background-image: url("../../src/assets/icons/Union.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
