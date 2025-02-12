@@ -7,13 +7,15 @@ import searchIcon from "../assets/icons/search-sm.svg";
 function Search() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const query = params.get("query") || "대통령"; // URL에서 쿼리 가져오기, 기본값 "대통령"
+  const query = params.get("query") || "대통령";
 
   const [searchKeyword, setSearchKeyword] = useState(query);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); 
+  const [totalCount, setTotalCount] = useState(0); 
 
   useEffect(() => {
     fetchSearchResults(searchKeyword);
+    fetchTotalCount(searchKeyword);
   }, [searchKeyword]);
 
   const fetchSearchResults = async (keyword) => {
@@ -22,6 +24,20 @@ function Search() {
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.articles);
+      } else {
+        console.error("API 요청 실패");
+      }
+    } catch (error) {
+      console.error("API 요청 오류:", error);
+    }
+  };
+
+  const fetchTotalCount = async (keyword) => {
+    try {
+      const response = await fetch(`http://13.238.115.119/api/articles/count/${keyword}`);
+      if (response.ok) {
+        const data = await response.json();
+        setTotalCount(data.totalCount);
       } else {
         console.error("API 요청 실패");
       }
@@ -54,7 +70,7 @@ function Search() {
 
       <S.Results>
         "<span className="keyword">{searchKeyword}</span>" 뉴스 검색 결과 총{" "}
-        <span className="count">{Object.keys(searchResults).length}</span>건입니다.
+        <span className="count">{totalCount}</span>건입니다.
       </S.Results>
 
       <S.CardGrid>
