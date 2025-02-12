@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cardImageBg from "/src/assets/icons/Union.png";
 
 
 export const Card = styled.div`
@@ -23,7 +24,7 @@ export const CardBackground = styled.div`
   position: relative;
   width: 105%;
   height: 100%;
-  background-image: url("../../src/assets/icons/Union.png");
+  background-image: url(${cardImageBg}); 
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -171,3 +172,4 @@ export const SourceIconContainer = styled.div`
   width: 60px;
   height: 50px;
 `;
+
