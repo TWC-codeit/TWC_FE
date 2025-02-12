@@ -57,14 +57,9 @@ export const ScrapIcon = styled.img`
 `;
 
 export const ArticleContent = styled.div`
-  display: -webkit-box;
-  -webkit-line-clamp: 3; 
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis; 
-  word-break: break-word;
-  line-height: 1.5;
-  max-height: 4.5em; 
+  
+  margin-left:10px;
+  
 `;
 
 export const ArticleTitle = styled.h3`
@@ -75,7 +70,7 @@ export const ArticleTitle = styled.h3`
 
 export const ArticleSummary = styled.div`
   display: -webkit-box;
-  -webkit-line-clamp: 4; 
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; 
@@ -85,6 +80,7 @@ export const ArticleSummary = styled.div`
   margin-top: 5px;
   color: #333;
   font-size: 0.95rem;
+  margin-top:10px;
 `;
 
 export const ArticleDate = styled.div`
