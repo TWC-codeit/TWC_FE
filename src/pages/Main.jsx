@@ -4,7 +4,7 @@ import * as M from "../styles/MainStyle";
 import LogoImage from "../assets/icons/Logo.svg";
 import SearchIcon from "../assets/icons/search-sm.svg";
 
-const apiUrl = "http://13.238.115.119/api/keywords"; 
+const apiUrl = "http://13.238.115.119/api/keywords";
 
 function Main() {
   const [keywords, setKeywords] = useState([]);
@@ -17,7 +17,7 @@ function Main() {
         const response = await fetch(apiUrl);
         if (response.ok) {
           const data = await response.json();
-          setKeywords(data.keywords.slice(0, 4)); // 키워드 크기가 작아서 4개로 해놓음
+          setKeywords(data.keywords.slice(0, 4));
         } else {
           console.error("키워드 API 호출 실패");
         }
@@ -30,7 +30,7 @@ function Main() {
 
   const handleSearch = (query) => {
     if (query.trim()) {
-      navigate(`/search?query=${encodeURIComponent(query)}`); 
+      navigate(`/search?query=${encodeURIComponent(query)}`);
     }
   };
 
@@ -44,9 +44,10 @@ function Main() {
           </M.SearchIcon>
           <M.SearchInput
             type="text"
-            placeholder="Search by keyword"
+            placeholder="키워드를 입력하세요"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleSearch(searchInput)} // Enter 키 이벤트 추가
           />
         </M.SearchBox>
       </M.SearchBar>
@@ -54,10 +55,7 @@ function Main() {
         <M.KeywordTitle>오늘 핫한 키워드</M.KeywordTitle>
         <M.Line />
         {keywords.map((keyword, index) => (
-          <M.KeywordButton
-            key={index}
-            onClick={() => handleSearch(keyword)} 
-          >
+          <M.KeywordButton key={index} onClick={() => handleSearch(keyword)}>
             {keyword}
           </M.KeywordButton>
         ))}
