@@ -124,7 +124,7 @@ const SearchListItem = ({ publisher, articles }) => {
                 <CardImage
                   src={article.thumbnail}
                   alt="기사 썸네일"
-                  onError={(e) => e.target.src = noImage} // ✅ 이미지 로딩 실패 시 noImage로 대체
+                  onError={(e) => e.target.src = noImage} 
                 />
                 <ScrapIcon
                   src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}
