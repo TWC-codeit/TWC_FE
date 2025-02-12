@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { 
     Card, 
     CardBackground, 
@@ -16,10 +16,13 @@ import {
     CardHeader, 
     TotalArticles, 
     ViewMoreButton
-  } from "../styles/components/SearchListItemStyle";
+} from "../styles/components/SearchListItemStyle";
 
 import noImage from "../assets/noimage/no-image-icon.png";
 import noIcon from "../assets/noimage/noIcon.jpeg";
+import bookmarkIcon from "../assets/icons/bookmark.svg";
+import bookmarkFilledIcon from "../assets/icons/bookmark_filled.svg"; 
+
 import Kyunghyang from "../assets/source/Kyunghyang Shinmun.png";
 import Hankyoreh from "../assets/source/Hankyoreh.png";
 import MoneyToday from "../assets/source/money_today.png";
@@ -43,7 +46,6 @@ import Edaily from "../assets/source/Edaily.png";
 import Herald from "../assets/source/Herald Business.png";
 import Maeil from "../assets/source/Maeil Business Newspaper.png";
 import EBN from "../assets/source/EBN.png";
-import bookmarkIcon from "../assets/icons/bookmark.svg";
 
 const sourceIconMap = {
   "경향신문": Kyunghyang,
@@ -71,17 +73,29 @@ const sourceIconMap = {
   "EBN": EBN,
 };
 
-
 const SearchListItem = ({ publisher, articles }) => {
-    const navigate = useNavigate();  // ✅ useNavigate 사용
+    const navigate = useNavigate();  
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const keyword = queryParams.get("query") || "";
+
+    const [bookmarks, setBookmarks] = useState({});
 
     const handleViewMoreClick = () => {
-        navigate(`/search/${publisher}`);  // ✅ 클릭 시 해당 언론사 페이지로 이동
+        navigate(`/search/${publisher}${location.search}`); 
     };
+
+    const toggleBookmark = (index) => {
+        setBookmarks((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
+
 
     const imageArticles = articles.filter(article => article.thumbnail).slice(0, 2);
     const textArticles = articles.filter(article => !article.thumbnail).slice(0, 6 - imageArticles.length);
-  
+
     return (
       <Card>
         <CardBackground>
@@ -90,29 +104,38 @@ const SearchListItem = ({ publisher, articles }) => {
             <SourceIcon src={sourceIconMap[publisher] || noIcon} alt={publisher} />
           </SourceIconContainer>
 
-          {/* 카드 헤더 (총 개수 & 전체보기) */}
+
           <CardHeader>
             <TotalArticles>총 {articles.length}건</TotalArticles>
             <ViewMoreButton onClick={handleViewMoreClick}>전체보기</ViewMoreButton> 
           </CardHeader>
 
-          {/* 이미지 기사 (썸네일 포함) */}
           <ThumbnailContainer>
             {imageArticles.map((article, index) => (
               <ThumbnailWrapper key={index}>
-                <CardImage src={article.thumbnail || noImage} alt="기사 썸네일" />
-                <ScrapIcon src={bookmarkIcon} alt="스크랩" />
+                <CardImage
+                  src={article.thumbnail && article.thumbnail.trim() !== "" ? article.thumbnail : noImage}
+                  alt="기사 썸네일"
+                />
+                <ScrapIcon
+                  src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}
+                  alt="스크랩"
+                  onClick={() => toggleBookmark(index)}
+                />
                 <ImageArticleTitle>{article.title}</ImageArticleTitle>
               </ThumbnailWrapper>
             ))}
           </ThumbnailContainer>
 
-          {/* 텍스트 기사 (제목만) */}
           <TextArticlesContainer>
             {textArticles.map((article, index) => (
               <ArticleText key={index}>
                 {article.title}
-                <ScrapIconText src={bookmarkIcon} alt="스크랩" />
+                <ScrapIconText
+                  src={bookmarks[index + imageArticles.length] ? bookmarkFilledIcon : bookmarkIcon}
+                  alt="스크랩"
+                  onClick={() => toggleBookmark(index + imageArticles.length)}
+                />
               </ArticleText>
             ))}
           </TextArticlesContainer>
