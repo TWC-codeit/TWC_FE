@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import palette from "../lib/colorPalette.js";
 
 export const Container = styled.div`
   padding: 0 5%;
-  background-color: #f5f7fa;
+  background-color: ${palette.background};
   max-width: 1440px; /* 콘텐츠의 최대 너비 */
   margin: 0 auto; /* 양쪽 여백을 동일하게 하여 가운데 정렬 */
   width: 100%; /* 전체 너비를 100%로 설정 */
