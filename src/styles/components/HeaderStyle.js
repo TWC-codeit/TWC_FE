@@ -44,6 +44,10 @@ export const Item = styled.li`
   &:hover {
     color: ${palette.gray.text}; 
   }
+
+  &.active {
+    color: ${palette.gray.text}; 
+  }
 `;
 
 export const Right = styled.div`
@@ -55,7 +59,7 @@ export const Right = styled.div`
 export const Notice = styled.img`
   width: 22px;
   height: 22px;
-  opacity: 0.68; 
+  opacity: 0.68;
   cursor: pointer;
   margin-right: 25px;
 `;
@@ -69,8 +73,8 @@ export const LoginButton = styled.button`
   font-family: "Pretendard";
   font-size: 14px;
   font-weight: 600;
-  color: ${palette.blue.main}; 
-  background-color:transparent; 
+  color: ${palette.blue.main};
+  background-color: transparent;
   border: none;
   cursor: pointer;
 `;

@@ -1,28 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom";
 import * as H from "../styles/components/HeaderStyle";
 import Logo from "../assets/TWC.svg";
 import NotificationIcon from "../assets/icons/notification.svg";
 import ProfileIcon from "../assets/icons/profile.svg";
 
 function Header() {
-  const isLoggedIn = false; 
-
+  const isLoggedIn = false;
+  const location = useLocation();
   return (
     <H.HeaderContainer>
-
       <H.Left>
         <Link to="/">
           <H.Logo src={Logo} alt="TWC Logo" />
         </Link>
         <H.Menu>
-          <H.Item>
+          <H.Item className={location.pathname === "/today" ? "active" : ""}>
             <Link to="/today">오늘의 보도들</Link>
           </H.Item>
-          <H.Item>
+          <H.Item className={location.pathname === "/timeline" ? "active" : ""}>
             <Link to="/timeline">타임라이너</Link>
           </H.Item>
-          <H.Item>
+          <H.Item className={location.pathname === "/scrap" ? "active" : ""}>
             <Link to="/scrap">스크랩 목록</Link>
           </H.Item>
         </H.Menu>
@@ -45,7 +44,7 @@ function Header() {
           </>
         )}
       </H.Right>
-    </H.HeaderContainer>               
+    </H.HeaderContainer>
   );
 }
 
