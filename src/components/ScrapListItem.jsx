@@ -118,7 +118,7 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
   };
 
   return (
-    <S.Card onClick={() => window.open(scrap.url, "_blank")}>
+    <S.Card>
       <S.CardBackground>
         <S.SourceIconContainer>
           <S.SourceIcon
@@ -128,7 +128,7 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
           />
         </S.SourceIconContainer>
         {/* 이미지 링크 null 이나 오류일 경우 default Image 출력 */}
-        <S.ThumbnailContainer>
+        <S.ThumbnailContainer onClick={() => window.open(scrap.url, "_blank")}>
           <S.Thumbnail
             src={scrap.imageUrl || noImage}
             alt="썸네일"
@@ -154,7 +154,9 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
               {formatPublishedDate(scrap.publishedAt)}
             </S.PublishedDate>
           </S.ContentHeader>
-          <S.Title>{scrap.title}</S.Title>
+          <S.Title onClick={() => window.open(scrap.url, "_blank")}>
+            {scrap.title}
+          </S.Title>
         </S.CardContent>
       </S.CardBackground>
     </S.Card>
