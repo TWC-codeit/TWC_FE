@@ -47,7 +47,7 @@ function Search() {
             type="text"
             placeholder="키워드를 입력하세요"
             defaultValue={searchKeyword}
-            onKeyPress={(e) => e.key === "Enter" && handleSearch()} // Enter 키 이벤트 추가
+            onKeyPress={(e) => e.key === "Enter" && handleSearch()} 
           />
         </S.SearchBox>
       </S.SearchBar>
