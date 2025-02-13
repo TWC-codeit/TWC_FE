@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as M from "../styles/MainStyle";
 import LogoImage from "../assets/icons/Logo.svg";
 import SearchIcon from "../assets/icons/search-sm.svg";
+import ScrapPopup from "../components/ScrapPopup";
 
 const apiUrl = "http://13.238.115.119/api/keywords";
 
@@ -60,6 +61,7 @@ function Main() {
           </M.KeywordButton>
         ))}
       </M.KeywordBox>
+      <ScrapPopup />
     </M.Main>
   );
 }

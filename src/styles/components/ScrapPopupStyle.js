@@ -71,3 +71,10 @@ export const ScrapPopupContainer = styled.div`
     isVisible ? "translateY(0)" : "translateY(130%)"};
   z-index: 13;
 `;
+
+export const NoScrapText = styled.p`
+  text-align: center;
+  font-size: 30px;
+  color: #666;
+  padding: 150px;
+`;

@@ -25,10 +25,10 @@ function Header() {
         rightText: "로그인하기",
         onLeft: () => {
           closeModal();
-          navigate("/login");
         },
         onRight: () => {
           closeModal();
+          navigate("/login");
         },
       });
     } else {
