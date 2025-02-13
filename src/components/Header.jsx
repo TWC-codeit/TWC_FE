@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as H from "../styles/components/HeaderStyle";
 import Logo from "../assets/TWC.svg";
-import NotificationIcon from "../assets/icons/notification.svg";
-import ProfileIcon from "../assets/icons/profile.svg";
 import { getCookie, removeCookie } from "../api/Cookie.js";
+import { useModal } from "../api/ModalContext";
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
@@ -12,6 +11,31 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { openModal, closeModal } = useModal();
+
+  const handleLinkClick = (e, to) => {
+    const token = getCookie("access_token");
+    if (!token) {
+      e.preventDefault(); // 링크 기본 동작 막기
+      openModal({
+        type: "button",
+        message: "로그인하셔야 본 서비스를 이용할 수 있습니다.",
+        leftText: "확인",
+        rightText: "로그인하기",
+        onLeft: () => {
+          closeModal();
+          navigate("/login");
+        },
+        onRight: () => {
+          closeModal();
+        },
+      });
+    } else {
+      // token이 있을 경우에는 정상적으로 'to'로 이동
+      navigate(to);
+    }
+  };
 
   useEffect(() => {
     const token = getCookie("access_token");
@@ -50,10 +74,17 @@ function Header() {
             <Link to="/today">오늘의 보도들</Link>
           </H.Item>
           <H.Item className={location.pathname === "/timeline" ? "active" : ""}>
-            <Link to="/timeline">타임라이너</Link>
+            <Link
+              to="/timeline"
+              onClick={(e) => handleLinkClick(e, "/timeline")}
+            >
+              타임라이너
+            </Link>
           </H.Item>
           <H.Item className={location.pathname === "/scrap" ? "active" : ""}>
-            <Link to="/scrap">스크랩 목록</Link>
+            <Link to="/scrap" onClick={(e) => handleLinkClick(e, "/scrap")}>
+              스크랩 목록
+            </Link>
           </H.Item>
         </H.Menu>
       </H.Left>
