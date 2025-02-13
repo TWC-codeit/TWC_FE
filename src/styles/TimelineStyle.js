@@ -15,23 +15,44 @@ export const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-export const TimelineWrapper = styled.div`
-  display: flex;
+export const TimelineGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* ✅ 최대 5개까지만 유지 */
   gap: 20px;
+  margin-top: 20px;
+  justify-items: center;
+  max-width: 100%; /* ✅ 부모 요소를 넘지 않도록 제한 */
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr); /* 🔹 태블릿 화면에서 3열 */
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* 🔹 모바일 화면에서 2열 */
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr); /* 🔹 더 작은 화면에서는 1열 */
+  }
 `;
 
 export const AddTimeline = styled.div`
   width: 200px;
-  height: 120px;
+  height: 140px;
   border: 2px dashed #387dff;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #387dff;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+  background: #f2f7ff;
+  position: relative;
+  transition: 0.3s;
+
   &:hover {
     background: #d7e5ff;
   }
@@ -44,11 +65,10 @@ export const NoData = styled.div`
   margin-top: 20px;
 `;
 
+// 📂 폴더 컨테이너 (이미지 변경 가능하도록 설정)
 export const TimelineFolder = styled.div`
   width: 200px;
-  height: 120px;
-  background:  ${(props) => (props.$isHovered ? "#87B1FF" : "#D7E5FF")};
-  border-radius: 8px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,13 +78,16 @@ export const TimelineFolder = styled.div`
   position: relative;
 `;
 
-export const FolderTop = styled.div`
-  position: absolute;
-  width: 100px;
-  height: 20px;
-  background: ${({ isHovered }) => (isHovered ? "#6A9AFF" : "#B0D0FF")};
-  top: -10px;
-  border-radius: 8px 8px 0 0;
+// 📂 폴더 아이콘 스타일 (닫힘/열림 상태 변경)
+export const FolderIcon = styled.img`
+  width: 220px; /* ✅ 크기 조정 */
+  height: 160px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const FolderContent = styled.div`
@@ -74,20 +97,32 @@ export const FolderContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-export const NewsLabel = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-  color: #387dff;
-  border: 1px solid #387dff;
-  padding: 2px 6px;
-  border-radius: 4px;
+  position: absolute;
+  z-index: 2;
 `;
 
 export const TimelineTitle = styled.div`
   font-size: 16px;
   font-weight: 600;
-  color: white;
+  color: black;
   margin-top: 8px;
+`;
+
+export const LoadingMessage = styled.div`
+  font-size: 18px;
+  color: #387dff;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+`;
+
+export const AddTimelineIcon = styled.img`
+  width: 220px; /* ✅ 크기 조정 */
+  height: 160px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
