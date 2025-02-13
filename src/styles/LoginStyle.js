@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
+  margin-top:-40px;
 `;
 
 export const Form = styled.form`
@@ -73,23 +74,12 @@ export const Input = styled.input`
 export const ErrorMessage = styled.div`
   color: red;
   font-size: 10px;
-  margin-bottom: 20px;
-  margin-left: -30px;
+  margin-top:-15px;
+  margin-left: -25px;
   text-align: center;
   display: block;
 `;
 
-export const LoginForgot = styled.a`
-  font-family: "Pretendard";
-  font-size: 12px;
-  color: ${palette.blue.main};
-  cursor: pointer;
-  align-self: flex-start;
-  margin-top: -15px;
-  margin-bottom: 25px;
-  margin-left: 70px;
-  text-decoration: underline;
-`;
 
 export const LoginButton = styled.button`
   width: 65%;
@@ -101,6 +91,7 @@ export const LoginButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top:10px;
 `;
 
 export const SignupButton = styled.button`

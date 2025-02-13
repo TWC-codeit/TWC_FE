@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cardImageBg from "/src/assets/icons/Union.png";
 
 
 export const Card = styled.div`
@@ -23,7 +24,7 @@ export const CardBackground = styled.div`
   position: relative;
   width: 105%;
   height: 100%;
-  background-image: url("../../src/assets/icons/Union.png");
+  background-image: url(${cardImageBg}); 
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -98,6 +99,10 @@ export const ScrapIcon = styled.img`
   width: 20px;
   height: 20px;
   cursor: pointer;
+
+  background-color: rgba(255, 255, 255, 0.5); 
+  padding: 1px; 
+  border-radius: 10%;
 `;
 
 
@@ -125,8 +130,8 @@ export const TextArticlesContainer = styled.div`
   height: 130px;
   overflow: hidden;
   padding: 5px 10px;
-  gap: 6px;
-  margin-top: 7px;
+  gap: 5px;
+  margin-top: 5px;
   margin-left: 30px;
 `;
 

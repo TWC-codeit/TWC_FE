@@ -111,14 +111,7 @@ function Signup() {
           </S.InputContainer>
         </S.Row>
         <S.CheckboxContainer>
-          <S.Checkbox>
-            <input type="checkbox" id="remember-id" />
-            <label htmlFor="remember-id">ID 기억하기</label>
-          </S.Checkbox>
-          <S.Checkbox>
-            <input type="checkbox" id="terms" required />
-            <label htmlFor="terms">(필수) 개인정보 수집 및 허용 동의</label>
-          </S.Checkbox>
+
         </S.CheckboxContainer>
         <S.SubmitButton type="submit">계정 생성</S.SubmitButton>
       </S.Form>
