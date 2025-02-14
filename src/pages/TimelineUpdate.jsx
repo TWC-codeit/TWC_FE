@@ -52,18 +52,37 @@ function TimelineUpdate() {
 
     console.log(droppedScraps);
 
-    const [{ isOver }, drop] = useDrop(() => ({
+    const [{ isOver }, drop] = useDrop({
         accept: "SCRAP_ITEM",
         drop: (item) => {
-            setDroppedScraps((prev) => [
-                ...prev,
-                { scrapId: item.scrapId, title: item.title, source: item.source, imageUrl: item.imageUrl, publishedAt: item.publishedAt, url: item.url },
-            ]);
+            console.log("드롭된 아이템:", item);
+            setDroppedScraps((prev) => {
+                const updatedScraps = [
+                    ...prev,
+                    {
+                        scrapId: item.scrapId,
+                        title: item.title,
+                        source: item.source,
+                        imageUrl: item.imageUrl,
+                        publishedAt: item.publishedAt,
+                        url: item.url,
+                    },
+                ];
+                console.log("업데이트된 droppedScraps:", updatedScraps);
+                return updatedScraps;
+            });
         },
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
-    }));
+    });
+
+    const popupDrop = useDrop(() => ({
+        accept: "SCRAP_ITEM",
+        drop: (item) => {
+            setDroppedScraps((prev) => prev.filter(scrap => scrap.scrapId !== item.scrapId));
+        },
+    }))[1];
 
     const handleCancel = () => {
         navigate("/timeline");
@@ -109,7 +128,7 @@ function TimelineUpdate() {
                 value={timelineName}
                 onChange={(e) => setTimelineName(e.target.value)}
             />
-            <T.DropZone ref={drop} isOver={isOver}>
+            <T.DropZone ref={drop} isOver={isOver} data-target="timeline">
                 {droppedScraps.length === 0 ? (
                     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                         여기로 스크랩을 드래그하세요
@@ -128,7 +147,9 @@ function TimelineUpdate() {
                     수정
                 </T.CreateButton>
             </T.ButtonArea>
-            <ScrapPopup />
+            <div ref={popupDrop} data-target="popup">
+                <ScrapPopup />
+            </div>
         </T.TimelineCreate>
     );
 }

@@ -30,7 +30,7 @@ export const DropZone = styled.div`
 `;
 
 export const Zone = styled.div`
-    width: calc(90% - 20px);
+    /* width: calc(90% - 20px); */
     min-height: 326px; 
     padding: 10px;
     display: flex;
