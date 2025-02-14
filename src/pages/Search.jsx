@@ -38,11 +38,12 @@ function Search() {
   const fetchTotalCount = async (keyword) => {
     try {
       const response = await fetch(
-        `http://13.238.115.119/api/articles/count/${keyword}`
+        `http://13.238.115.119/api/articles/count?keywords=${keyword}`
       );
       if (response.ok) {
         const data = await response.json();
-        setTotalCount(data.totalCount);
+
+        setTotalCount(data[keyword].totalCount);
       } else {
         console.error("API 요청 실패");
       }
@@ -84,6 +85,7 @@ function Search() {
             key={publisher}
             publisher={publisher}
             articles={articles}
+            keyword={searchKeyword}
           />
         ))}
       </S.CardGrid>
