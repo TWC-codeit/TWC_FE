@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as S from "../styles/components/ScrapListItemStyle.js";
+import { useModal } from "../api/ModalContext";
 
 import bookmarkIcon from "../assets/icons/bookmark.svg";
 import bookmarkFilledIcon from "../assets/icons/bookmark_filled.svg";
@@ -72,6 +73,25 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
   const [isBookmarked, setIsBookmarked] = useState(true);
+  const { openModal, closeModal } = useModal();
+
+  const handleScrapModal = (isBookmarked) => {
+    const message = isBookmarked
+      ? "스크랩이 완료되었습니다"
+      : "스크랩이 취소되었습니다";
+
+    setTimeout(() => {
+      openModal({
+        type: "alert",
+        message: message,
+      });
+
+      // 1초 후에 모달 닫기
+      setTimeout(() => {
+        closeModal();
+      }, 1000);
+    }, 0);
+  };
 
   if (isEmpty) {
     return <S.EmptyCard />;
@@ -93,9 +113,13 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
           }
         );
         setIsBookmarked(false);
+
         if (response.status === 404) {
           console.error({ message });
-        } else if (response.status === 200) console.log("스크랩 삭제 성공");
+        } else if (response.status === 200) {
+          console.log("스크랩 삭제 성공");
+          handleScrapModal(false);
+        }
       } else {
         // 스크랩 생성 API 호출
         const response = await axios.post(
@@ -108,8 +132,10 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
           }
         );
         setIsBookmarked(true);
+
         if (response.status === 201) {
           console.log("스크랩 추가 성공");
+          handleScrapModal(true);
         }
       }
     } catch (error) {

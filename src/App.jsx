@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { DndProvider } from "react-dnd";
+import { ModalProvider } from "./api/ModalContext.jsx";
 import { HTML5Backend } from "react-dnd-html5-backend"; // ✅ 추가
 import "./App.css";
-import palette from './lib/colorPalette';
+import palette from "./lib/colorPalette";
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -35,7 +36,7 @@ function App() {
   }, [location]);
 
   return (
-    <DndProvider backend={HTML5Backend}> {/* ✅ DndProvider 적용 */}
+    <DndProvider backend={HTML5Backend}>
       <div className="App">
         <Routes>
           <Route exact path="/" element={<Main />} />
@@ -45,12 +46,20 @@ function App() {
           {/* 오늘의 보도들 */}
           <Route exact path="/today" element={<Todaynews />} />
           <Route exact path="/search" element={<Search />} />
-          <Route exact path="/search/:publisherName" element={<SearchDetail />} />
+          <Route
+            exact
+            path="/search/:publisherName"
+            element={<SearchDetail />}
+          />
           {/* 나의 타임라이너 */}
           <Route exact path="/timeline" element={<TimelineList />} />
           <Route exact path="/timeline/create" element={<TimelineCreate />} />
           <Route exact path="/timeline/:id" element={<TimelineDetail />} />
-          <Route exact path="/timeline/:id/update" element={<TimelineUpdate />} />
+          <Route
+            exact
+            path="/timeline/:id/update"
+            element={<TimelineUpdate />}
+          />
         </Routes>
       </div>
     </DndProvider>
