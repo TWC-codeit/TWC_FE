@@ -90,7 +90,7 @@ const TimelineDetail = () => {
           }
         } catch (error) {
           console.error("타임라인 삭제 실패:", error);
-          alert("타임라인 수정에 실패했습니다.");
+          alert("타임라인 삭제에 실패했습니다.");
         }
       },
     });
