@@ -2,9 +2,8 @@ import styled from "styled-components";
 import palette from "../lib/colorPalette.js";
 
 export const Container = styled.div`
-  padding: 0 5%;
+  padding: 0 10%;
   background-color: ${palette.background};
-  max-width: 1440px; /* 콘텐츠의 최대 너비 */
   margin: 0 auto; /* 양쪽 여백을 동일하게 하여 가운데 정렬 */
   width: 100%; /* 전체 너비를 100%로 설정 */
   box-sizing: border-box;
@@ -31,7 +30,27 @@ export const DateHeading = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.columns}, 1fr);
+
+  @media (min-width: 0px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 800px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1000px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
   gap: 20px;
   max-width: 100%; /* 최대 너비를 설정하여 웹 페이지에서 중앙에 배치 */
   margin: 0 auto; /* 가운데 정렬 */
