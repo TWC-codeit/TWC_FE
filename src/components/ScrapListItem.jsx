@@ -73,6 +73,7 @@ const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
   const [isBookmarked, setIsBookmarked] = useState(true);
+  const [scrapId, setScrapId] = useState(scrap?.scrapId); //초기 렌더링 시 ScrapId 저장
   const { openModal, closeModal } = useModal();
 
   const handleScrapModal = (isBookmarked) => {
@@ -104,20 +105,18 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
     try {
       if (isBookmarked) {
         // 스크랩 삭제 API 호출
-        const response = await axios.delete(
-          `${apiUrl}/scraps/${scrap.scrapId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        setIsBookmarked(false);
+        const response = await axios.delete(`${apiUrl}/scraps/${scrapId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
 
         if (response.status === 404) {
           console.error({ message });
         } else if (response.status === 200) {
           console.log("스크랩 삭제 성공");
+          setIsBookmarked(false);
+          setScrapId(null);
           handleScrapModal(false);
         }
       } else {
@@ -131,10 +130,11 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
             },
           }
         );
-        setIsBookmarked(true);
 
         if (response.status === 201) {
           console.log("스크랩 추가 성공");
+          setIsBookmarked(true);
+          setScrapId(response.data.id); //새로운 scrapId 업데이트
           handleScrapModal(true);
         }
       }
