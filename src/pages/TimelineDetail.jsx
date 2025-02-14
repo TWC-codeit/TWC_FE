@@ -49,6 +49,26 @@ const TimelineDetail = () => {
         fetchTimeline();
     }, [timelineId, navigate]);
 
+    const handleDeleteTimeline = async () => {
+        if (!window.confirm("정말로 삭제하시겠습니까?")) return;
+    
+        try {
+            const response = await axios.delete(`${apiUrl}/timelines/${timelineId}`, {
+                headers: {
+                    Authorization: `Bearer ${getCookie("access_token")}`,
+                },
+            });
+    
+            if (response.status === 200) {
+                alert("타임라인이 삭제되었습니다.");
+                navigate("/timeline");
+            }
+        } catch (error) {
+            console.error("타임라인 삭제 실패:", error);
+            alert("타임라인 삭제에 실패했습니다.");
+        }
+    };    
+
     return (
         <T.Container>
             <T.DropZone>
@@ -64,6 +84,7 @@ const TimelineDetail = () => {
             </T.DropZone>
             <C.ButtonArea>
                 <C.CreateButton onClick={() => navigate(`/timeline/${timelineId}/update`)}>타임라인 수정하기</C.CreateButton>
+                <C.CreateButton onClick={handleDeleteTimeline}>타임라인 삭제하기</C.CreateButton>
             </C.ButtonArea>
         </T.Container>
     );
