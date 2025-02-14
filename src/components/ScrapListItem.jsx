@@ -81,17 +81,15 @@ const ScrapListItem = ({ scrap, isEmpty, accessToken }) => {
       ? "스크랩이 완료되었습니다"
       : "스크랩이 취소되었습니다";
 
-    setTimeout(() => {
-      openModal({
-        type: "alert",
-        message: message,
-      });
+    openModal({
+      type: "alert",
+      message: message,
+    });
 
-      // 1초 후에 모달 닫기
-      setTimeout(() => {
-        closeModal();
-      }, 1000);
-    }, 0);
+    // 1초 후에 모달 닫기
+    setTimeout(() => {
+      closeModal();
+    }, 1000);
   };
 
   if (isEmpty) {

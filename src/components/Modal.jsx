@@ -2,6 +2,7 @@ import React from "react";
 import { useModal } from "../api/ModalContext.jsx";
 import * as M from "../styles/components/ModalStyle"; // 모달 스타일 파일 경로
 import checksign from "../assets/icons/check.svg";
+import errorsign from "../assets/icons/error.svg";
 const Modal = () => {
   const { isOpen, modalContent, closeModal } = useModal();
 
@@ -31,6 +32,13 @@ const Modal = () => {
         return (
           <>
             <M.CheckIcon src={checksign} />
+            <M.AlertMessage>{modalContent.message}</M.AlertMessage>
+          </>
+        );
+      case "error":
+        return (
+          <>
+            <M.CheckIcon src={errorsign} />
             <M.AlertMessage>{modalContent.message}</M.AlertMessage>
           </>
         );
