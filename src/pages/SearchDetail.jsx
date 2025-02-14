@@ -66,7 +66,7 @@ const SearchDetail = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
-  const [bookmarks, setBookmarks] = useState({});  
+  const [bookmarks, setBookmarks] = useState({});
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -75,21 +75,14 @@ const SearchDetail = () => {
         const articleUrl = `${BASE_URL}/api/articles/${keyword}/${publisherName}`;
         const countUrl = `${BASE_URL}/api/articles/count/${keyword}`;
 
-        console.log("API 요청 URL:", articleUrl);
-        console.log("기사 개수 API 요청:", countUrl);
-
         const [articleResponse, countResponse] = await Promise.all([
           axios.get(articleUrl),
           axios.get(countUrl),
         ]);
 
-        console.log("✅ 기사 데이터:", articleResponse.data);
-        console.log("✅ 기사 개수 데이터:", countResponse.data);
-
         setArticles(Array.isArray(articleResponse.data.articles) ? articleResponse.data.articles : []);
         setTotalCount(countResponse.data.mediaCounts[publisherName] || 0);
       } catch (error) {
-        console.error("데이터 가져오기 실패:", error);
         setArticles([]);
         setTotalCount(0);
       } finally {
@@ -100,13 +93,16 @@ const SearchDetail = () => {
     fetchArticles();
   }, [keyword, publisherName]);
 
-  
   const toggleBookmark = (index) => {
     setBookmarks((prev) => ({
       ...prev,
       [index]: !prev[index],
     }));
   };
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
 
   if (!articles || !Array.isArray(articles) || articles.length === 0) {
     return <div>해당 키워드에 대한 기사가 없습니다.</div>;
@@ -131,9 +127,9 @@ const SearchDetail = () => {
               alt="기사 이미지"
             />
             <S.ScrapIcon
-              src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}  
+              src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}
               alt="스크랩"
-              onClick={() => toggleBookmark(index)}  
+              onClick={() => toggleBookmark(index)}
             />
           </S.ThumbnailWrapper>
 
@@ -150,8 +146,6 @@ const SearchDetail = () => {
                 {article.write_time ? article.write_time : "날짜 없음"}
             </S.ArticleDate> 
            </S.ArticleContent>
-
-
         </S.Article>
       ))}
     </S.Container>
