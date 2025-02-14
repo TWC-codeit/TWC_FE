@@ -66,7 +66,7 @@ function Login() {
             로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.
           </L.ErrorMessage>
         )}
-        <L.LoginForgot>비밀번호를 잊으셨나요?</L.LoginForgot>
+
         <L.LoginButton type="submit">로그인</L.LoginButton>
         <L.SignupButton onClick={() => navigate("/signup")}>
           회원가입

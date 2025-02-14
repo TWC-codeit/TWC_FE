@@ -76,25 +76,14 @@ const SearchDetail = () => {
         const articleUrl = `${BASE_URL}/api/articles/${keyword}/${publisherName}`;
         const countUrl = `${BASE_URL}/api/articles/count/${keyword}`;
 
-        console.log("API 요청 URL:", articleUrl);
-        console.log("기사 개수 API 요청:", countUrl);
-
         const [articleResponse, countResponse] = await Promise.all([
           axios.get(articleUrl),
           axios.get(countUrl),
         ]);
 
-        console.log("✅ 기사 데이터:", articleResponse.data);
-        console.log("✅ 기사 개수 데이터:", countResponse.data);
-
-        setArticles(
-          Array.isArray(articleResponse.data.articles)
-            ? articleResponse.data.articles
-            : []
-        );
+        setArticles(Array.isArray(articleResponse.data.articles) ? articleResponse.data.articles : []);
         setTotalCount(countResponse.data.mediaCounts[publisherName] || 0);
       } catch (error) {
-        console.error("데이터 가져오기 실패:", error);
         setArticles([]);
         setTotalCount(0);
       } finally {
@@ -111,6 +100,10 @@ const SearchDetail = () => {
       [index]: !prev[index],
     }));
   };
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
 
   if (!articles || !Array.isArray(articles) || articles.length === 0) {
     return <div>해당 키워드에 대한 기사가 없습니다.</div>;
@@ -163,9 +156,9 @@ const SearchDetail = () => {
             </S.ArticleSummary>
 
             <S.ArticleDate>
-              {article.write_time ? article.write_time : "날짜 없음"}
-            </S.ArticleDate>
-          </S.ArticleContent>
+                {article.write_time ? article.write_time : "날짜 없음"}
+            </S.ArticleDate> 
+           </S.ArticleContent>
         </S.Article>
       ))}
       <ScrapPopup />

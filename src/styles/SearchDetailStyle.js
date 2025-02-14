@@ -49,11 +49,15 @@ export const ArticleImage = styled.img`
 
 export const ScrapIcon = styled.img`
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 8px;
+  right: 6px;
   width: 24px;
   height: 24px;
   cursor: pointer;
+
+  background-color: rgba(255, 255, 255, 0.5); 
+  padding: 1px; 
+  border-radius: 10%;
 `;
 
 export const ArticleContent = styled.div`

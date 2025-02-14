@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
+  margin-top:-40px;
 `;
 
 export const Form = styled.form`  /* 🔥 form으로 변경 */
@@ -89,26 +90,10 @@ export const CheckboxContainer = styled.div`
   align-items: flex-start;
   gap: 10px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
-export const Checkbox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  label {
-    font-family: "Pretendard";
-    font-size: 12px;
-    color: ${palette.gray.text};
-    cursor: pointer;
-  }
-  input {
-    border: 1px solid #D1D1D1;
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-  }
-`;
+
 
 export const SubmitButton = styled.button`
   width: 60%;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { 
     Card, 
     CardBackground, 
@@ -74,84 +74,132 @@ const sourceIconMap = {
 };
 
 const SearchListItem = ({ publisher, articles }) => {
-    const navigate = useNavigate();  
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const keyword = queryParams.get("query") || "";
+  const navigate = useNavigate();  
+  const location = useLocation();
+  const [bookmarkedArticles, setBookmarkedArticles] = useState({});
 
-    const [bookmarks, setBookmarks] = useState({});
+  const normalizePublisher = (name) => name.trim().toLowerCase();
 
-    const handleViewMoreClick = () => {
-        navigate(`/search/${publisher}${location.search}`); 
-    };
+  useEffect(() => {
+      fetchScrapList();
+  }, []);
 
-    const toggleBookmark = (index) => {
-        setBookmarks((prev) => ({
-            ...prev,
-            [index]: !prev[index],
-        }));
-    };
+  const fetchScrapList = async () => {
+      try {
+          const response = await fetch(`http://13.238.115.119/api/scraps`, {
+              method: "GET",
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                  
+              },
+          });
 
+          if (response.ok) {
+              const data = await response.json();
+              const scrapMap = {};
+              data.forEach((item) => {
+                  scrapMap[item.articleId] = item.scrapId;
+              });
+              setBookmarkedArticles(scrapMap);
+          }
+      } catch (error) {
+          console.error("스크랩 목록 불러오기 오류:", error);
+      }
+  };
 
-    let selectedArticles = articles.slice(0, 6);
+  const toggleBookmark = async (article) => {
+      const isBookmarked = bookmarkedArticles.hasOwnProperty(article.link);
 
-   
-    let imageArticles = selectedArticles.slice(0, 2).map(article => ({
-        ...article,
-        thumbnail: article.thumbnail && article.thumbnail.trim() ? article.thumbnail : noImage
-    }));
+      if (isBookmarked) {
+          try {
+              const response = await fetch(`http://13.238.115.119/api/scraps/${bookmarkedArticles[article.link]}`, {
+                  method: "DELETE",
+                  headers: {
+                      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                  },
+              });
 
-    
-    let textArticles = selectedArticles.slice(2);
+              if (response.ok) {
+                  setBookmarkedArticles((prev) => {
+                      const updated = { ...prev };
+                      delete updated[article.link];
+                      return updated;
+                  });
+              }
+          } catch (error) {
+              console.error("스크랩 해제 오류:", error);
+          }
+      } else {
+          try {
+              const response = await fetch(`http://13.238.115.119/api/scraps`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                  },
+                  body: JSON.stringify({ articleId: article.link }),
+              });
 
-    return (
+              if (response.ok) {
+                  const data = await response.json();
+                  setBookmarkedArticles((prev) => ({
+                      ...prev,
+                      [article.link]: data.scrapId,
+                  }));
+              }
+          } catch (error) {
+              console.error("스크랩 추가 오류:", error);
+          }
+      }
+  };
+
+  return (
       <Card>
-        <CardBackground>
-         
-          <SourceIconContainer>
-            <SourceIcon src={sourceIconMap[publisher] || noIcon} alt={publisher} />
-          </SourceIconContainer>
+          <CardBackground>
+              <SourceIconContainer>
+                  <SourceIcon src={sourceIconMap[normalizePublisher(publisher)] || noIcon} alt={publisher} />
+              </SourceIconContainer>
 
-          <CardHeader>
-            <TotalArticles>총 {articles.length}건</TotalArticles>
-            <ViewMoreButton onClick={handleViewMoreClick}>전체보기</ViewMoreButton> 
-          </CardHeader>
+              <CardHeader>
+                  <TotalArticles>총 {articles.length}건</TotalArticles>
+                  <ViewMoreButton onClick={() => navigate(`/search/${publisher}${location.search}`)}>전체보기</ViewMoreButton> 
+              </CardHeader>
 
-       
-          <ThumbnailContainer>
-            {imageArticles.map((article, index) => (
-              <ThumbnailWrapper key={index}>
-                <CardImage
-                  src={article.thumbnail}
-                  alt="기사 썸네일"
-                  onError={(e) => e.target.src = noImage} 
-                />
-                <ScrapIcon
-                  src={bookmarks[index] ? bookmarkFilledIcon : bookmarkIcon}
-                  alt="스크랩"
-                  onClick={() => toggleBookmark(index)}
-                />
-                <ImageArticleTitle>{article.title}</ImageArticleTitle>
-              </ThumbnailWrapper>
-            ))}
-          </ThumbnailContainer>
+              <ThumbnailContainer>
+                  {articles.slice(0, 2).map((article, index) => (
+                      <ThumbnailWrapper key={index}>
+                          <a href={article.link} target="_blank" rel="noopener noreferrer">
+                              <CardImage src={article.thumbnail || noImage} alt="기사 썸네일" />
+                          </a>
+                          <ScrapIcon
+                              src={bookmarkedArticles[article.link] ? bookmarkFilledIcon : bookmarkIcon}
+                              alt="스크랩"
+                              onClick={() => toggleBookmark(article)}
+                          />
+                          <a href={article.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit" }}>
+                              <ImageArticleTitle>{article.title}</ImageArticleTitle>
+                          </a>
+                      </ThumbnailWrapper>
+                  ))}
+              </ThumbnailContainer>
 
-       
-          <TextArticlesContainer>
-            {textArticles.map((article, index) => (
-              <ArticleText key={index}>
-                {article.title}
-                <ScrapIconText
-                  src={bookmarks[index + 2] ? bookmarkFilledIcon : bookmarkIcon}
-                  alt="스크랩"
-                  onClick={() => toggleBookmark(index + 2)}
-                />
-              </ArticleText>
-            ))}
-          </TextArticlesContainer>
-        </CardBackground>
+              <TextArticlesContainer>
+                  {articles.slice(2, 6).map((article, index) => (
+                      <ArticleText key={index}>
+                          <a href={article.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit" }}>
+                              {article.title}
+                          </a>
+                          <ScrapIconText
+                              src={bookmarkedArticles[article.link] ? bookmarkFilledIcon : bookmarkIcon}
+                              alt="스크랩"
+                              onClick={() => toggleBookmark(article)}
+                          />
+                      </ArticleText>
+                  ))}
+              </TextArticlesContainer>
+          </CardBackground>
       </Card>
-    );
+  );
 };
 
 export default SearchListItem;
