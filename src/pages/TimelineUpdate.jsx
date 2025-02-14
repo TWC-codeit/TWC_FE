@@ -29,11 +29,14 @@ function TimelineUpdate() {
                     setTimelineName(name);
                     setDroppedScraps(items.map((item) => ({
                         scrapId: item.scrapId,
-                        title: item.title || "제목 없음",
-                        source: item.source || "출처 없음",
-                        imageUrl: item.imageUrl || "",
-                        publishedAt: item.publishedAt || "",
-                        url: item.url || "",
+                        articleId: item.article.id,
+                        title: item.article.title || "제목 없음",
+                        keyword: item.article.keyword || "키워드 없음",
+                        source: item.article.source || "출처 없음",
+                        publishedAt: item.article.publishedAt || "",
+                        content: item.article.content || "내용 없음",
+                        imageUrl: item.article.imageUrl || "",
+                        url: item.article.url || "",
                     })));
                 }
             } catch (error) {
@@ -42,9 +45,10 @@ function TimelineUpdate() {
                 navigate("/timeline");
             }
         };
-
+    
         fetchTimeline();
     }, [timelineId, navigate]);
+    
 
     console.log(droppedScraps);
 

@@ -29,6 +29,14 @@ const TimelineDetail = () => {
                         id: item.id,
                         scrapId: item.scrapId,
                         createdAt: item.createdAt || "날짜 없음",
+                        articleId: item.article.id,
+                        title: item.article.title,
+                        keyword: item.article.keyword,
+                        source: item.article.source,
+                        publishedAt: item.article.publishedAt,
+                        content: item.article.content,
+                        imageUrl: item.article.imageUrl,
+                        url: item.article.url,
                     })));
                 }
             } catch (error) {
