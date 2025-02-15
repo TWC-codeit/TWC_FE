@@ -26,7 +26,7 @@ function Todaynews() {
   const [keywords, setKeywords] = useState([]); // 키워드 목록
   const [keywordCounts, setKeywordCounts] = useState({}); // 기사 개수
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate(); // 🔹 페이지 이동을 위한 navigate 추가
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchKeywordData = async () => {
@@ -37,30 +37,36 @@ function Todaynews() {
           const keywordList = response.data.keywords.slice(0, 20); // 상위 20개 키워드 사용
           setKeywords(keywordList);
 
-          // 🔹 각 키워드별 기사 개수 가져오기
-          const requests = keywordList.map((keyword) =>
-            axios.get(`${apiUrl}/articles/count/${keyword}`).catch(() => null)
+          console.log("Keyword List:", keywordList);
+
+          const encodedKeywords = keywordList.map(encodeURIComponent).join(",");
+
+          const countResponse = await axios.get(
+            `${apiUrl}/articles/count/total?keywords=${encodedKeywords}`
           );
 
-          const responses = await Promise.all(requests);
+          console.log("API Response:", countResponse.data);
 
-          const counts = {};
-          responses.forEach((res, idx) => {
-            if (res && res.data && typeof res.data.totalCount === "number") {
-              counts[keywordList[idx]] = res.data.totalCount;
-            } else {
-              counts[keywordList[idx]] = 0; // 실패 시 기본값 0
-            }
-          });
-
-          setKeywordCounts(counts);
+          // 🔹 API 응답 데이터 확인 및 변환 (totalCount 추출)
+          if (countResponse.data) {
+            const counts = {};
+            Object.entries(countResponse.data).forEach(([keyword, data]) => {
+              if (data !== null) {
+                counts[keyword] = data; // ✅ null이 아닌 경우에만 저장
+              }
+            });
+            setKeywordCounts(counts);
+          } else {
+            console.error("API 응답이 예상과 다름:", countResponse.data);
+            setKeywordCounts({});
+          }
         } else {
-          console.error("❌ API 응답 형식이 예상과 다름:", response.data);
+          console.error("키워드 API 응답이 예상과 다름:", response.data);
           setKeywords([]);
           setKeywordCounts({});
         }
       } catch (error) {
-        console.error("❌ 키워드 데이터 가져오기 실패:", error);
+        console.error("키워드 데이터 가져오기 실패:", error);
         setKeywords([]);
         setKeywordCounts({});
       }
