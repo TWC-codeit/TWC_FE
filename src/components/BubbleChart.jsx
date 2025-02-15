@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const BubbleChart = ({ keywordCounts }) => {
+const BubbleChart = ({ keywordCounts, onKeywordClick }) => {
   const svgRef = useRef();
 
   useEffect(() => {
@@ -9,8 +9,8 @@ const BubbleChart = ({ keywordCounts }) => {
 
     d3.select(svgRef.current).selectAll("*").remove(); // 기존 차트 제거
 
-    const width = 600,
-      height = 500;
+    const width = 800,
+      height = 700;
 
     // 🔹 데이터 유효성 검사 (NaN 제거)
     const validData = Object.entries(keywordCounts)
@@ -48,12 +48,18 @@ const BubbleChart = ({ keywordCounts }) => {
       .enter()
       .append("g")
       .attr("class", "node")
-      .attr("transform", (d) => `translate(${d.x || 0}, ${d.y || 0})`); // 🔹 NaN 방지
+      .attr("transform", (d) => `translate(${d.x || 0}, ${d.y || 0})`)
+      .style("cursor", "pointer")
+      .on("click", (event, d) => {
+        if (onKeywordClick) {
+          onKeywordClick(d.data.name); // ✅ 클릭 시 검색 API 호출
+        }
+      });
 
     nodes
       .append("circle")
-      .attr("r", (d) => d.r || 10) // 🔹 NaN 방지: 최소 크기 지정
-      .style("fill", (d) => colorScale(d.data.size)) // ✅ 값이 클수록 진한 파란색 적용
+      .attr("r", (d) => d.r || 10)
+      .style("fill", (d) => colorScale(d.data.size))
       .style("opacity", 0.8)
       .transition()
       .duration(1000)
@@ -66,7 +72,7 @@ const BubbleChart = ({ keywordCounts }) => {
       .style("fill", "#fff")
       .style("font-size", (d) => Math.max(10, d.r / 4) + "px")
       .text((d) => d.data.name);
-  }, [keywordCounts]);
+  }, [keywordCounts, onKeywordClick]);
 
   return <svg ref={svgRef} />;
 };
