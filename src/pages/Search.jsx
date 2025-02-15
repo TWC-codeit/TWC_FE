@@ -22,11 +22,12 @@ function Search() {
   const fetchSearchResults = async (keyword) => {
     try {
       const response = await fetch(
-        `http://13.238.115.119/api/articles/${keyword}`
+        `http://13.238.115.119/api/articles/list?keywords=${keyword}`
       );
       if (response.ok) {
         const data = await response.json();
-        setSearchResults(data.articles);
+        console.log(data);
+        setSearchResults(data[keyword]);
       } else {
         console.error("API 요청 실패");
       }
