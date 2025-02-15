@@ -74,15 +74,22 @@ const SearchDetail = () => {
       try {
         const BASE_URL = "http://13.238.115.119";
         const articleUrl = `${BASE_URL}/api/articles/${keyword}/${publisherName}`;
-        const countUrl = `${BASE_URL}/api/articles/count/${keyword}`;
+        const countUrl = `${BASE_URL}/api/articles/count?keywords=${keyword}`;
 
         const [articleResponse, countResponse] = await Promise.all([
           axios.get(articleUrl),
           axios.get(countUrl),
         ]);
-
-        setArticles(Array.isArray(articleResponse.data.articles) ? articleResponse.data.articles : []);
-        setTotalCount(countResponse.data.mediaCounts[publisherName] || 0);
+        //console.log(articleResponse.data.articles);
+        //console.log(countResponse.data[keyword].mediaCounts[publisherName] );
+        setArticles(
+          Array.isArray(articleResponse.data.articles)
+            ? articleResponse.data.articles
+            : []
+        );
+        setTotalCount(
+          countResponse.data[keyword].mediaCounts[publisherName] || 0
+        );
       } catch (error) {
         setArticles([]);
         setTotalCount(0);
@@ -156,9 +163,9 @@ const SearchDetail = () => {
             </S.ArticleSummary>
 
             <S.ArticleDate>
-                {article.write_time ? article.write_time : "날짜 없음"}
-            </S.ArticleDate> 
-           </S.ArticleContent>
+              {article.write_time ? article.write_time : "날짜 없음"}
+            </S.ArticleDate>
+          </S.ArticleContent>
         </S.Article>
       ))}
       <ScrapPopup />
